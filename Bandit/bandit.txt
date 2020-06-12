@@ -1,0 +1,34 @@
+Solutions for over the wire (bandit) →
+
+
+00 → 01	:	boJ9jbbUNNfktd78OOpsqOltutMc3MY1
+01 → 02	:	CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+02 → 03	:	UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+03 → 04	:	pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+04 → 05	:	koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+05 → 06	:	DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+06 → 07	:	HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+07 → 08	:	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+08 → 09	:	UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+09 → 10	:	truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+10 → 11	:	IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+11 → 12	:	5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+12 → 13	:	8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+13 → 14	:	4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+14 → 15	:	BfMYroe26WYalil77FoDi9qh59eK5xNr
+15 → 16	:	cluFn7wTiGryunymYOu4RcffSxQluehd
+16 → 17	:	xLYVMN9WE5zQ5vHacb0sZEVqbrp7nBTn
+17 → 18	:	kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+18 → 19	:	IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
+19 → 20	:	GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+20 → 21	:	gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+21 → 22 :	Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+22 → 23 :	jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+23 → 24 :	UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+24 → 25 :	uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
+25 → 26 :	
+26 → 27 :	
+27 → 28 :	
+28 → 29 :	
+29 → 30 :	
+30 → 31 :	
