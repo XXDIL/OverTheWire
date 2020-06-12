@@ -1,6 +1,8 @@
 # OvertTheWire Bandit Wargame Hints:
 Walkthrough of the bandit wargame at overthewire.org
 
+![Bandit](https://user-images.githubusercontent.com/66634743/84546755-0c442d80-ad13-11ea-8afd-fdb7f17d2945.png)
+
 Link to wargame: [Bandit](http://overthewire.org/wargames/bandit)
 
 ### Level 0 ⟶ 1
@@ -71,7 +73,6 @@ bandit4@bandit:~$ cd inhere
 bandit4@bandit:~/inhere$ ls
 -file00  -file02  -file04  -file06  -file08
 -file01  -file03  -file05  -file07  -file09
-
 bandit4@bandit:~/inhere$ file * # doing so will result in (No such file or directory).
 ```
 This is because the files are starting with the "-" special character therefore the command should be
@@ -91,64 +92,74 @@ bandit4@bandit:~/inhere$ cat ./-file07 # being the only ASCII text file
 koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 ```
 ### Level 5 ⟶ 6
-<pre>
-ssh -p 2220 bandit5@bandit.labs.overthewire.org
-	koReBOKuIDDepwhWk7jZC0RTdopnAYKh]
-
-cd inhere
-find . -type f -size 1033c #Here we use find to search for a file of size 1033 bytes (https://www.ostechnix.com/find-files-bigger-smaller-x-size-linux/)
-cat ./maybehere07/.file2
-</pre>
+```console
+bandit5@bandit:~$ cd inhere
+bandit5@bandit:~/inhere$ find . -type f -size 1033c # we can use find to search for a file of size 1033 bytes
+bandit5@bandit:~/inhere$ cat ./maybehere07/.file2
+DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+```
 ### Level 6 ⟶ 7
-<pre>
-ssh -p 2220 bandit6@bandit.labs.overthewire.org
-	DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+```console
+bandit6@bandit:~$ find . -type f -size 33c -user bandit7 -group bandit6
+bandit6@bandit:~$ cat ./var/lib/dpkg/info/bandit7.password
+HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+```
+Here we just append more conditions (group and user) to the find command.
+* The '.' in the find command means, "in the current directory"
 
-find . -type f -size 33c -user bandit7 -group bandit6
-
-# Here we just append more conditions (group and user) to the find command.
-
-cat ./var/lib/dpkg/info/bandit7.password
-</pre>
 ### Level 7 ⟶ 8
-<pre>
-ssh -p 2220 bandit7@bandit.labs.overthewire.org
-	HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+```console
+bandit7@bandit:~$ grep "millionth" data.txt
+cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+```
+'**grep**' is one of the most useful command to search for strings within text files and display the line containing the matched string
 
-grep "millionth" data.txt
-# grep is used to search for strings within text files and display the line containing the matched string {https://www.linode.com/docs/tools-reference/tools/how-to-grep-for-text-in-files/}
-</pre>
+An alternat way is as follows (Easier):
+```console
+bandit7@bandit:~$ cat data.txt | grep "millionth"
+cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+```
+* '**|**' symbol is called the '**pipe**' it is used to carry the output of the left command to the input of the right command
+
 ### Level 8 ⟶ 9
-<pre>
-ssh -p 2220 bandit8@bandit.labs.overthewire.org
-	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
-sort data.txt | uniq -u
+```console
+bandit8@bandit:~$ sort data.txt | uniq -u
+UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+```
+* uniq -u compares each line to an adjacent lines and outputs the line if it is locally unique.
+* To ensure that the line is globally unique, we run the sort command and pipe the output into uniq
 
-# uniq -u compares each line to an adjacent lines and outputs the line if it is locally unique (compared to adjacent lines)
+You can even do the following:
+```console
+bandit8@bandit:~$ cat data.txt | sort | uniq -u
+UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+```
 
-# To ensure that the line is globally unique, we run the sort command and pipe the output into uniq
-</pre>
 ### Level 9 ⟶ 10
-<pre>
-ssh -p 2220 bandit9@bandit.labs.overthewire.org
-	UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+```console
+bandit9@bandit:~$ strings data.txt | grep =
+========== the*2i"4
+=:G e
+========== password
+<I=zsGi
+Z)========== is
+A=|t&E
+Zdb=
+c^ LAh=3G
+*SF=s
+&========== truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+S=A.H&^
+```
+Finding all ASCII strings in data.txt, we pipe that into a grep, that searches for '**=**'
+* we know how our key looks like **truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk**
 
-strings data.txt | grep '^=\+'
-
-# Finding all ASCII strings in data.txt, we pipe that into a grep search utilising regular expression.
-# '^=\+' indicatest that the line should start wtih one or more "=" characters 
-# {https://www.gnu.org/software/findutils/manual/html_node/find_html/grep-regular-expression-syntax.html}
-</pre>
 ### Level 10 ⟶ 11
-<pre>
-ssh -p 2220 bandit10@bandit.labs.overthewire.org
-	truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+```console
+bandit10@bandit:~$ base64 -d data.txt
+IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+```
+Decodes the base64 file and prints the output. (We could also use an online decoder.)
 
-base64 -d data.txt 
-# Decodes the base64 file and prints the output
-
-# Some notes on base64: it is an encoding scheme that encodes binary to ACSII wehre each each base 64 digit represents 6 bits of data (since 2^6 == 64). When used on text, the chars are first converted into octets and bits before being base64 encoded {https://en.wikipedia.org/wiki/Base64#Examples}
-</pre>
 ### Level 11
 <pre>
 ssh -p 2220 bandit11@bandit.labs.overthewire.org
