@@ -1,0 +1,12 @@
+solutions for over the wire (Krypton) - 	: 
+
+
+Level 0 → Level 1 :		KRYPTONISGREAT
+Level 1 → Level 2 :		ROTTEN
+Level 2 → Level 3 :		CAESARISEASY
+Level 3 → Level 4 : 	BRUTE
+Level 4 → Level 5 : 	
+Level 5 → Level 6 : 	
+Level 6 → Level 7 : 	
+
+
