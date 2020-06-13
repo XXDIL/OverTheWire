@@ -7,13 +7,13 @@ The wargames offered by the OverTheWire community can help you to learn and prac
 
 ### List Of Games:
 
-#### [Bandit](https://github.com/XXDIL/OverTheWire/tree/master/Bandit)
+1. #### [Bandit](https://github.com/XXDIL/OverTheWire/tree/master/Bandit)
 * Basic Linux Commands
-#### [Leviathan](https://github.com/XXDIL/OverTheWire/tree/master/Leviathan)
+2. #### [Leviathan](https://github.com/XXDIL/OverTheWire/tree/master/Leviathan)
 * \*nix Based Commands
-#### [Natas](https://github.com/XXDIL/OverTheWire/tree/master/Natas)
+3. #### [Natas](https://github.com/XXDIL/OverTheWire/tree/master/Natas)
 * Serverside Web-Security
-#### [Krypton](https://github.com/XXDIL/OverTheWire/tree/master/Krypton)
+4. #### [Krypton](https://github.com/XXDIL/OverTheWire/tree/master/Krypton)
 * Cryptography
 
-Still a work in progress.
+Still a work in progress.(More stuff coming up :smile:)
