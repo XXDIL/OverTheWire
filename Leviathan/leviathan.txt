@@ -1,7 +1,7 @@
 solutions for over the wire (Leviathan) - 	: 
 
 
-Level 0				:	leviathan0
+Level 0               :	leviathan0
 Level 0 → Level 1	:	rioGegei8m
 Level 1 → Level 2	:	ougahZi8Ta
 Level 2 → Level 3	:	Ahdiemoo1j
