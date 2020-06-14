@@ -160,85 +160,103 @@ IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
 ```
 Decodes the base64 file and prints the output. (We could also use an online decoder.)
 
-### Level 11
-<pre>
-ssh -p 2220 bandit11@bandit.labs.overthewire.org
-	IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+### Level 11 ⟶ 12
+```console
+bandit11@bandit:~$ cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+```
+There is a popular technique called 'rot13' cipher, used in Crypto.
+We can optain a similar result using the **tr** function to 'rotate' the letters (like in rot13).
+* A - N, B - O, C - P, ..., M - Z, N - A, O - B, ..., Z - M.
 
-alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
-# Define a function rot13 to perform the decryption
-# A to Z is mapped to N-Z followed by A-M, the rot13 formula
+You can try it out yourself by replacing \<letter\> with any letter. 
+```console
+foo@bar:~$ echo <letter> | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+```
 
-cat data.txt  | rot13
-# Pipe the input into the function and read the decrypted message
-</pre>
-### Level 12
-<pre>
-ssh -p 2220 bandit12@bandit.labs.overthewire.org
-	5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+### Level 12 ⟶ 13
 
-# Set up work envt
-mkdir /tmp/brandontang
-cp data.txt /tmp/brandontang
-cd /tmp/brandontang
+First you will need to create a tmp folder.(I'm calling it XXDIL, feel free to your tab :p)
+```console
+bandit12@bandit:~$ mkdir /tmp/XXDIL
+bandit12@bandit:~$ cp data.txt /tmp/XXDIL #copy data.txt to the newly created folder (XXDIL)
+bandit12@bandit:~$ cd /tmp/XXDIL
+bandit12@bandit:/tmp/XXDIL$
+```
+Now we are ready to do the real work...
+```console
+bandit12@bandit:/tmp/XXDIL$ xxd -r data.txt data1
+```
+we will be using one of the following unzip methods:
 
-# Revert Hex Dump
-cat data.txt
-xxd -r data.txt reverted
+* gunzip filename.gz
+* bzip2 -d filename.bz2
+* tar -xvf filename.bin
 
-# Recursively Unzip the files; start by finding out what type of file it is.
-file reverted
+use the **file** command to find the type of file and use the right unzip method
+```console
+bandit12@bandit:/tmp/XXDIL$ file data1
+data1: gzip compressed data, was "data2.bin", last modified: Thu May  7 18:14:30 2020, max compression, from Unix
+bandit12@bandit:/tmp/XXDIL$ mv data1.gz  #changing the extention to .gz
+```
+notice the **gzip** word therefore we will use the gunzip (remember to add the right extensions).
 
-# Choose unzip method
-gunzip filename.gz
-bzip2 -d filename.bz2
-tar -xvf filename.bin
+Repeat above until ASCII file is obtained. (arount 8 files)
+```console
+bandit12@bandit:/tmp/XXDIL$ cat data8
+8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+```
 
-# Repeat above until ASCII file is obtained
-# Read off password
-cat data8
-</pre>
-### Level 13
-<pre>
-ssh -p 2220 bandit13@bandit.labs.overthewire.org
-	8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+### Level 13 ⟶ 14
+For this section you will need to understand how ssh keys work.
+[Start here](https://help.ubuntu.com/community/SSH/OpenSSH/Keys)
+```console
+bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
+bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+```
 
-ssh -i sshkey.private bandit14@localhost
-# Simply use the private key to login to the bandit 14 account
+### Level 14 ⟶ 15
+The command is like follows <br />
+telnet \<host\> \<port\>
+```
+bandit14@bandit:~$ telnet localhost 30000
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e # enter password
+Correct!
+BfMYroe26WYalil77FoDi9qh59eK5xNr
 
-cat /etc/bandit_pass/bandit14
-</pre>
-### Level 14
-<pre>
-ssh -p 2220 bandit14@bandit.labs.overthewire.org
-	4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+Connection closed by foreign host.
+```
 
-telnet localhost 30000
-# use telnet to connect to the host <localhost> on port <30000>
-	4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e # nter password
-</pre>
-### Level 15
-<pre>
-ssh -p 2220 bandit15@bandit.labs.overthewire.org
-	BfMYroe26WYalil77FoDi9qh59eK5xNr
+### Level 15 ⟶ 16
+You will need a little bit of recon for this task. If you know anything about openssl, you will know s_client & s_server.
+then look up s_client this will lead you to how its used.
+```console
+bandit15@bandit:~$ openssl s_client -connect localhost:30001
+BfMYroe26WYalil77FoDi9qh59eK5xNr #enter password
+Correct!
+cluFn7wTiGryunymYOu4RcffSxQluehd
 
-# Connect to localhost at port 30001 with SSL
-# open an SSL connection to localhost port 30001 and print the ssl certificate used by the service
-openssl s_client -connect localhost:30001
-	BfMYroe26WYalil77FoDi9qh59eK5xNr #enter password
-</pre>
-### Level 16
-<pre>
-ssh -p 2220 bandit16@bandit.labs.overthewire.org
-	cluFn7wTiGryunymYOu4RcffSxQluehd
+closed
+```
 
-nmap -sV -p 31000-32000 localhost # Use Nmap to perform a service scan on ports 31000-32000
+### Level 16 ⟶ 17
+```console
+bandit16@bandit:~$ nmap -sV -p 31000-32000 localhost
+PORT      STATE SERVICE     VERSION
+31046/tcp open  echo
+31518/tcp open  ssl/echo           	# This is the one with ssl
+31691/tcp open  echo
+31790/tcp open  ssl/unknown		# even this one but whats 'unknown' (looks interesting)
+31960/tcp open  echo
+bandit16@bandit:~$ openssl s_client -connect localhost:31790
+cluFn7wTiGryunymYOu4RcffSxQluehd
+```
 
-openssl s_client -connect localhost:31790 # Connect to port 31790
-	cluFn7wTiGryunymYOu4RcffSxQluehd
-
-
-# Output Credentials
+#### Output
 -----BEGIN RSA PRIVATE KEY-----
 MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
 imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
@@ -269,62 +287,39 @@ vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
 
 
 
-# Create a new temp directory and create a credentials file. Use it to ssh into the next level
-mkdir /tmp/somename
-cd /tmp/somename
+Now we can use this key to get the ssh login.
+```console
+bandit16@bandit:~$ mkdir /tmp/lol
+bandit16@bandit:~$ cd /tmp/lol
+bandit16@bandit:/tmp/lol$ vim key
+```
+Copy past the key into the file then save it by 
+* Press Esc and then type :wq!
 
-echo "-----BEGIN RSA PRIVATE KEY-----
-MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
-imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
-Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
-DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
-JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
-x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
-KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
-J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
-d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
-YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
-vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
-+TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
-8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
-SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
-HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
-SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
-R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
-Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
-R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
-L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
-blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
-YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
-77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
-dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
-vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
------END RSA PRIVATE KEY-----" > bandit17key.private
-
-ssh -i bandit17key.private bandit17@localhost
-cat /etc/bandit_pass/bandit17 # Find out the actual password for bandit17
-</pre>
-### Level 17
-<pre>
-ssh -p 2220 bandit17@bandit.labs.overthewire.org
-	xLYVMN9WE5zQ5vHacb0sZEVqbrp7nBTn
-diff passwords.new passwords.old
-</pre>
-### Level 18
+```console
+bandit16@bandit:/tmp/lol$ ssh -i key bandit17@localhost
+bandit17@bandit:~$ cat /etc/bandit_pass/bandit17
+xLYVMN9WE5zQ5vHacb0sZEVqbrp7nBTn
+```
+### Level 17 ⟶ 18
+```console
+bandit17@bandit:~$ diff passwords.new passwords.old
+```
+### Level 18 ⟶ 19
 <pre>
 # In this level, the .bashrc logs one out immediately once an interactive session is started.
 # Thus we read the password without opening an interactive bash shell
 ssh -p 2220 bandit18@bandit.labs.overthewire.org "cat readme"
 	kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
 </pre>
-### Level 19
+### Level 19 ⟶ 20
 <pre>
 ssh -p 2220 bandit19@bandit.labs.overthewire.org
 	IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
 
 ./bandit20-do cat /etc/bandit_pass/bandit20 # ./bandit20-do runs a command as bandit20; from there we just use it to access the bandit20 password
 </pre>
-### Level 20
+### Level 20 ⟶ 21
 <pre>
 ssh -p 2220 bandit20@bandit.labs.overthewire.org
 	GbKksEFF4yrVs6il55v6gwY5aVje5f0j
